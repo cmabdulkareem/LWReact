@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -12,10 +14,10 @@ function Register() {
     axios
       .post("http://localhost:3000/register", { username, email, password })
       .then((res) => {
-        console.log(res);
+        toast.success(res.data.message);
       })
       .catch((err) => {
-        console.log(err);
+        toast.error(err.response.data.error);
       });
   }
 
@@ -53,6 +55,7 @@ function Register() {
         />
         <button type="submit">Register</button>
       </form>
+      <ToastContainer position="top-center" />
     </div>
   );
 }
